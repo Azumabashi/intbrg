@@ -1,0 +1,1 @@
+type Formulae* = distinct uint64 | distinct uint32 | distinct uint16 | distinct uint8
