@@ -8,5 +8,9 @@ proc `or`*(x, y: Formulae): Formulae = x or y
 proc `not`*(x: Formulae): Formulae = not x
 proc `implies`*(left, right: Formulae): Formulae = (not left) or right
 
+# equivalence
+proc `equiv`*(x, y: Formulae): bool = x == y
+proc `==`*(x, y: Formulae): bool = x equiv y
+
 # stringify
 proc `$`*(x: Formulae): string = toBin(x, sizeof(type(x)))
