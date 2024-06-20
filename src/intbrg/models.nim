@@ -3,6 +3,9 @@ import sequtils
 
 type Model* = distinct uint8
 
+# test whether two models are the same or not
+func `==`*(x, y: Model): bool = x == y
+
 func getModels*(f: Formulae): seq[Model] =
   ## Returns the set of f's models.
   let size = 8 * sizeof(typeof(f))
