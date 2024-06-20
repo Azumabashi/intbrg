@@ -3,8 +3,8 @@ import models
 import sequtils
 import strutils
 
-type DistanceFunc = proc (x, y: Model): int
-type AggregateFunc[T: int | seq[int]] = proc (xs: seq[int]): T
+type DistanceFunc* = proc (x, y: Model): int
+type AggregateFunc*[T: int | seq[int]] = proc (xs: seq[int]): T
 
 proc d(omega: Model, phi: Formulae, dist: DistanceFunc): int = 
   phi.getModels().mapIt(dist(it, omega)).min()
