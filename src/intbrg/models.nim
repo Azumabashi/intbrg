@@ -1,10 +1,14 @@
 import formulae
 import sequtils
+import strutils
 
 type Model* = distinct uint8
 
 # test whether two models are the same or not
 func `==`*(x, y: Model): bool = x == y
+
+# stringify
+func `$`*(x: Model): string = toBin(x.int, 8)
 
 func getModels*(f: Formulae): seq[Model] =
   ## Returns the set of f's models.
