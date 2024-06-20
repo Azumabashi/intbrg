@@ -1,24 +1,31 @@
+import bigints
+import algorithm
 import strutils
 
-type Formulae* = distinct uint64 | distinct uint32 | distinct uint16 | distinct uint8
+type Formulae* = distinct BigInt
 
 # Logical operators
-proc `and`*(x, y: Formulae): Formulae = x and y
-proc `or`*(x, y: Formulae): Formulae = x or y
-proc `not`*(x: Formulae): Formulae = not x
+proc `and`*(x, y: Formulae): Formulae {.borrow.}
+proc `or`*(x, y: Formulae): Formulae {.borrow.}
+proc `not`*(x: Formulae): Formulae {.borrow.}
 proc `implies`*(left, right: Formulae): Formulae = (not left) or right
 
 # equivalence
+proc `==`*(x, y: Formulae): bool {.borrow.}
 proc `equiv`*(x, y: Formulae): bool = x == y
-proc `==`*(x, y: Formulae): bool = x equiv y
 
 # bit width
-func getBitWidth*(x: Formulae): int = 8 * sizeof type x
+proc fastLog2(x: Formulae): int {.borrow.}
+func getBitWidth*(x: Formulae): int = fastLog2(x)
 
 # stringify
-proc `$`*(x: Formulae): string = toBin(x, getBitWidth(x))
+proc `$`*(x: Formulae): string = 
+  var digits: seq[int] = @[]
+  for i in 0..<getBitWidth(x):
+    let isPop = ((x.BigInt shr i) and initBigInt(1)) > initBigInt(0)
+    digits.add(if isPop: 1 else: 0)
+  digits.reversed.join("")
 
 # convert to formulae
 func toFormulae*(bit: string): Formulae =
-  assert bin.len in @[8, 16, 32, 64]
-  parseBiggestUInt(bit).Formulae
+  initBigInt(bit).Formulae
