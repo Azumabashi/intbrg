@@ -17,3 +17,8 @@ func getBitWidth*(x: Formulae): int = 8 * sizeof type x
 
 # stringify
 proc `$`*(x: Formulae): string = toBin(x, getBitWidth(x))
+
+# convert to formulae
+func toFormulae*(bit: string): Formulae =
+  assert bin.len in @[8, 16, 32, 64]
+  parseBiggestUInt(bit).Formulae
