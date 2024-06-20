@@ -17,7 +17,7 @@ proc delta*[T](self: Formulae, others: seq[Formulae], dist: DistanceFunc, aggr: 
   let dfs = models.mapIt(df(it, others, dist, aggr))
   let minDfs = dfs.min()
   let newModels = (0..<models.len).toSeq.filterIt(dfs[it] == minDfs)
-  let truthTable = newSeqWith(0, getBitWidth(self))
+  var truthTable = newSeqWith(0, getBitWidth(self))
   for m in newModels:
     truthTable[m] = 1
   return truthTable.join("").parseBinInt().Formulae
