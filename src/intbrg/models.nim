@@ -1,11 +1,13 @@
 import formulae
 import sequtils
 
-func getModels*(f: Formulae): seq[int] =
+type Model* = distinct uint8
+
+func getModels*(f: Formulae): seq[Model] =
   ## Returns the set of f's models.
   let size = 8 * sizeof(typeof(f))
   let str = $f
-  return (0..<size).filterIt(str[i] == '1')
+  return (0..<size).filterIt(str[i] == '1').mapIt(it.Model)
 
 # SAT-related functions
 func isSat*(f: Formulae): bool = f.getModels.len > 0
