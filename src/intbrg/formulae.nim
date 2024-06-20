@@ -2,30 +2,30 @@ import bigints
 import algorithm
 import strutils
 
-type Formulae* = distinct BigInt
+type Formulae* = tuple
+  formula: BigInt
+  digits: int
 
 # Logical operators
-proc `and`*(x, y: Formulae): Formulae {.borrow.}
-proc `or`*(x, y: Formulae): Formulae {.borrow.}
-proc `not`*(x: Formulae): Formulae {.borrow.}
-proc `implies`*(left, right: Formulae): Formulae = (not left) or right
+proc `and`*(x, y: Formulae): Formulae = (x.formula and y.formula, x.digits)
+proc `or`*(x, y: Formulae): Formulae = (x.formula or y.formula, x.digits)
+proc `not`*(x: Formulae): Formulae = (not x.formula, x.digits)
+proc `implies`*(left, right: Formulae): Formulae = ((not left.formula) or right.formula, left.digits)
 
 # equivalence
-proc `==`*(x, y: Formulae): bool {.borrow.}
+proc `==`*(x, y: Formulae): bool = x.formula == y.formula and x.digits == y.digits
 proc `equiv`*(x, y: Formulae): bool = x == y
 
 # bit width
-proc fastLog2(x: Formulae): int {.borrow.}
-func getBitWidth*(x: Formulae): int = fastLog2(x)
+func getBitWidth*(x: Formulae): int = x.digits
 
 # stringify
 proc `$`*(x: Formulae): string = 
   var digits: seq[int] = @[]
-  for i in 0..<getBitWidth(x):
-    let isPop = ((x.BigInt shr i) and initBigInt(1)) > initBigInt(0)
+  for i in 0..<x.digits:
+    let isPop = ((x.formula shr i) and initBigInt(1)) > initBigInt(0)
     digits.add(if isPop: 1 else: 0)
   digits.reversed.join("")
 
 # convert to formulae
-func toFormulae*(bit: string): Formulae =
-  initBigInt(bit).Formulae
+func toFormulae*(bit: string): Formulae = (initBigInt(bit), bit.len)
