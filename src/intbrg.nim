@@ -1,8 +1,8 @@
-import intbrg/aggregation
-import intbrg/delta
-import intbrg/distance
-import intbrg/formulae
-import intbrg/models
+import ./intbrg/aggregation
+import ./intbrg/delta
+import ./intbrg/distance
+import ./intbrg/formulae
+import ./intbrg/models
 
 export sum, gMin
 export delta, DistanceFunc, AggregateFunc, r1, r2, r3, r4, r5, r6
