@@ -31,7 +31,7 @@ func r2*(self: Formulae, others: seq[Formulae], dist: DistanceFunc, aggr: Aggreg
   delta(d, @[self], dist, aggr)
 
 func r3*(self: Formulae, others: seq[Formulae], dist: DistanceFunc, aggr: AggregateFunc): Formulae =
-  delta(getTautology(self.digits), @[self] + others, dist, aggr)
+  delta(getTautology(self.digits), @[self].concat(others), dist, aggr)
 
 func r4*(self: Formulae, others: seq[Formulae], dist: DistanceFunc, aggr: AggregateFunc): Formulae =
   delta(getTautology(self.digits), @[self, r1(self, others, dist, aggr)], dist, aggr)
