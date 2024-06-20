@@ -9,4 +9,4 @@ func hamming*(x, y: Model): int =
   ## Hamming distance
   let sx = $x
   let sy = $y
-  (0..<sx.len).toSeq.mapIt(sx[it] != sy[it]).len
+  (0..<sx.len).toSeq.filterIt(sx[it] != sy[it]).len
