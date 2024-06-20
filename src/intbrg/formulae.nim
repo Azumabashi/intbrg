@@ -28,7 +28,7 @@ proc `$`*(x: Formulae): string =
   digits.reversed.join("")
 
 # convert to formulae
-func toFormulae*(bit: string): Formulae = (initBigInt(bit), bit.len)
+func toFormulae*(bit: string): Formulae = (initBigInt(bit, 2), bit.len)
 
 func getTautology*(width: int): Formulae = 
-  (initBigInt("1".repeat(width)), width)
+  (initBigInt("1".repeat(width), 2), width)
