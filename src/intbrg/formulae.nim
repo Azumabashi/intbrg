@@ -29,3 +29,6 @@ proc `$`*(x: Formulae): string =
 
 # convert to formulae
 func toFormulae*(bit: string): Formulae = (initBigInt(bit), bit.len)
+
+func getTautology*(width: int): Formulae = 
+  (initBigInt("1".repeat(width)), width)
