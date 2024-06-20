@@ -12,5 +12,8 @@ proc `implies`*(left, right: Formulae): Formulae = (not left) or right
 proc `equiv`*(x, y: Formulae): bool = x == y
 proc `==`*(x, y: Formulae): bool = x equiv y
 
+# bit width
+func getBitWidth*(x: Formulae): int = 8 * sizeof type x
+
 # stringify
-proc `$`*(x: Formulae): string = toBin(x, sizeof(type(x)))
+proc `$`*(x: Formulae): string = toBin(x, getBitWidth(x))

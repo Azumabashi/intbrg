@@ -19,4 +19,4 @@ func getModels*(f: Formulae): seq[Model] =
 # SAT-related functions
 func isSat*(f: Formulae): bool = f.getModels.len > 0
 func isUnsat*(f: Formulae): bool = not isSat(f)
-func isTautology*(f: Formulae): bool = f.getModels.len == 8 * sizeof(typeof(f))
+func isTautology*(f: Formulae): bool = f.getModels.len == getBitWidth(f)
