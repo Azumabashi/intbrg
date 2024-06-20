@@ -20,7 +20,7 @@ proc delta*[T](self: Formulae, others: seq[Formulae], dist: DistanceFunc, aggr: 
   var truthTable = newSeqWith(0, getBitWidth(self))
   for m in newModels:
     truthTable[m] = 1
-  return truthTable.join("").parseBinInt().Formulae
+  truthTable.join("").toFormulae()
 
 # R1 to R6
 proc r1*[T](self: Formulae, others: seq[Formulae], dist: DistanceFunc, aggr: AggregateFunc[T]): Formulae =
