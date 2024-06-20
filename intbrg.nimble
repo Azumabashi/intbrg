@@ -10,3 +10,4 @@ srcDir        = "src"
 # Dependencies
 
 requires "nim >= 2.0.0"
+requires "https://github.com/nim-lang/bigints#head"
