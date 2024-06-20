@@ -4,15 +4,15 @@ import sequtils
 import strutils
 
 type DistanceFunc* = proc (x, y: Model): int
-type AggregateFunc*[T: int | seq[int]] = proc (xs: seq[int]): T
+type AggregateFunc*[T] = proc (xs: seq[int]): T
 
 proc d(omega: Model, phi: Formulae, dist: DistanceFunc): int = 
   phi.getModels().mapIt(dist(it, omega)).min()
 
-func df[T](omega: Model, ks: seq[Formulae], dist: DistanceFunc, aggr: AggregateFunc[T]): T =
+proc df[T](omega: Model, ks: seq[Formulae], dist: DistanceFunc, aggr: AggregateFunc[T]): T =
   ks.mapIt(d(omega, it, dist)).aggr()
 
-func delta*(self: Formulae, others: seq[Formulae], dist: DistanceFunc, aggr: AggregateFunc): Formulae =
+proc delta*[T](self: Formulae, others: seq[Formulae], dist: DistanceFunc, aggr: AggregateFunc[T]): Formulae =
   let models = self.getModels()
   let dfs = models.mapIt(df(it, others, dist, aggr))
   let minDfs = dfs.min()
@@ -23,21 +23,21 @@ func delta*(self: Formulae, others: seq[Formulae], dist: DistanceFunc, aggr: Agg
   return truthTable.join("").parseBinInt().Formulae
 
 # R1 to R6
-func r1*(self: Formulae, others: seq[Formulae], dist: DistanceFunc, aggr: AggregateFunc): Formulae =
+proc r1*[T](self: Formulae, others: seq[Formulae], dist: DistanceFunc, aggr: AggregateFunc[T]): Formulae =
   delta(getTautology(self.digits), others, dist, aggr)
 
-func r2*(self: Formulae, others: seq[Formulae], dist: DistanceFunc, aggr: AggregateFunc): Formulae =
+proc r2*[T](self: Formulae, others: seq[Formulae], dist: DistanceFunc, aggr: AggregateFunc[T]): Formulae =
   let d = r1(self, others, dist, aggr)
   delta(d, @[self], dist, aggr)
 
-func r3*(self: Formulae, others: seq[Formulae], dist: DistanceFunc, aggr: AggregateFunc): Formulae =
+proc r3*[T](self: Formulae, others: seq[Formulae], dist: DistanceFunc, aggr: AggregateFunc[T]): Formulae =
   delta(getTautology(self.digits), @[self].concat(others), dist, aggr)
 
-func r4*(self: Formulae, others: seq[Formulae], dist: DistanceFunc, aggr: AggregateFunc): Formulae =
+proc r4*[T](self: Formulae, others: seq[Formulae], dist: DistanceFunc, aggr: AggregateFunc[T]): Formulae =
   delta(getTautology(self.digits), @[self, r1(self, others, dist, aggr)], dist, aggr)
 
-func r5*(self: Formulae, others: seq[Formulae], dist: DistanceFunc, aggr: AggregateFunc): Formulae =
+proc r5*[T](self: Formulae, others: seq[Formulae], dist: DistanceFunc, aggr: AggregateFunc[T]): Formulae =
   delta(self, r1(self, others, dist, aggr), dist, aggr)
 
-func r6*(self: Formulae, others: seq[Formulae], dist: DistanceFunc, aggr: AggregateFunc): Formulae =
+proc r6*[T](self: Formulae, others: seq[Formulae], dist: DistanceFunc, aggr: AggregateFunc[T]): Formulae =
   delta(self, others, dist, aggr)
