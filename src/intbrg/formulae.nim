@@ -9,7 +9,7 @@ type Formulae* = tuple
 # Logical operators
 proc `and`*(x, y: Formulae): Formulae = (x.formula and y.formula, x.digits)
 proc `or`*(x, y: Formulae): Formulae = (x.formula or y.formula, x.digits)
-proc `not`*(x: Formulae): Formulae = (not x.formula, x.digits)
+proc `not`*(x: Formulae): Formulae = (initBigInt(repeat("1", x.digits), 2) - x.formula, x.digits)
 proc `implies`*(left, right: Formulae): Formulae = ((not left.formula) or right.formula, left.digits)
 
 # equivalence
