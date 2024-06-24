@@ -10,6 +10,8 @@ func `==`*(x, y: Model): bool {.borrow.}
 # stringify
 func `$`*(x: Model): string {.borrow.}
 
+func toModel*(model: string): Model = model.Model
+
 func getDigits(truthTableCols: int): int =
   var i = 0
   while (1 shl i) != truthTableCols:
