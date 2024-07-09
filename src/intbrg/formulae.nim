@@ -27,8 +27,8 @@ proc `$`*(x: Formulae): string =
     digits.add(if isPop: 1 else: 0)
   digits.reversed.join("")
 
-# convert to formulae
-func toFormulae*(bit: string): Formulae = (initBigInt(bit, 2), bit.len)
+# convert to formula
+func toFormula*(bit: string): Formulae = (initBigInt(bit, 2), bit.len)
 
 func getTautology*(width: int): Formulae = 
   (initBigInt("1".repeat(width), 2), width)

@@ -36,7 +36,7 @@ func toFormula*(ms: seq[Model]): Formulae =
   var bottom = newSeqWith(1 shl ms[0].string.len, 0)
   for idx in idxs:
     bottom[idx] = 1
-  return bottom.join("").toFormulae
+  return bottom.join("").toFormula
 
 # SAT-related functions
 func isSat*(f: Formulae): bool = f.getModels.len > 0

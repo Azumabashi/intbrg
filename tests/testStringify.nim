@@ -6,7 +6,7 @@ import intbrg
 suite "Stringify":
   test "formula":
     const x = "11000011"
-    check(x == $(toFormulae(x)))
+    check(x == $(toFormula(x)))
   
   test "model":
     const m = "000"
