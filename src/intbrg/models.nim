@@ -27,6 +27,17 @@ func getModels*(f: Formulae): seq[Model] =
     .filterIt(str[it] == '1')
     .mapIt(toBin(size - it - 1, digits).Model)
 
+func toIndex(model: Model): int =
+  let maxIndex = (1 shl model.string.len) - 1
+  return maxIndex - parseBinInt(model.string)
+
+func toFormula*(ms: seq[Model]): Formulae =
+  let idxs = ms.map(toIndex)
+  var bottom = newSeqWith(1 shl ms[0].string.len, 0)
+  for idx in idxs:
+    bottom[idx] = 1
+  return bottom.join("").toFormulae
+
 # SAT-related functions
 func isSat*(f: Formulae): bool = f.getModels.len > 0
 func isUnsat*(f: Formulae): bool = not isSat(f)

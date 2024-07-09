@@ -1,7 +1,6 @@
 import formulae
 import models
 import sequtils
-import strutils
 
 type DistanceFunc* = proc (x, y: Model): int
 type AggregateFunc*[T] = proc (xs: seq[int]): T
@@ -31,11 +30,8 @@ proc delta*[T](self: Formulae, others: seq[Formulae], dist: DistanceFunc, aggr: 
   let models = self.getModels()
   let dfs = models.mapIt(df(it, others, dist, aggr))
   let minDfs = dfs.min()
-  let newModels = (0..<models.len).toSeq.filterIt(dfs[it] == minDfs)
-  var truthTable = newSeqWith(getBitWidth(self), 0)
-  for m in newModels:
-    truthTable[m] = 1
-  truthTable.join("").toFormulae()
+  let newModels = (0..<models.len).toSeq.filterIt(dfs[it] == minDfs).mapIt(models[it])
+  return newModels.toFormula
 
 # R1 to R6
 proc r1*[T](self: Formulae, others: seq[Formulae], dist: DistanceFunc, aggr: AggregateFunc[T]): Formulae =
