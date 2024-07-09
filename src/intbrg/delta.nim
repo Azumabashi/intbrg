@@ -48,7 +48,7 @@ proc r4*[T](self: Formulae, others: seq[Formulae], dist: DistanceFunc, aggr: Agg
   delta(getTautology(self.digits), @[self, r1(self, others, dist, aggr)], dist, aggr)
 
 proc r5*[T](self: Formulae, others: seq[Formulae], dist: DistanceFunc, aggr: AggregateFunc[T]): Formulae =
-  delta(self, r1(self, others, dist, aggr), dist, aggr)
+  delta(self, @[r1(self, others, dist, aggr)], dist, aggr)
 
 proc r6*[T](self: Formulae, others: seq[Formulae], dist: DistanceFunc, aggr: AggregateFunc[T]): Formulae =
   delta(self, others, dist, aggr)
