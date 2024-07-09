@@ -12,6 +12,12 @@ proc d(omega: Model, phi: Formulae, dist: DistanceFunc): int =
 proc df[T](omega: Model, ks: seq[Formulae], dist: DistanceFunc, aggr: AggregateFunc[T]): T =
   ks.mapIt(d(omega, it, dist)).aggr()
 
+func `<`*(xs, ys: seq[int]): bool =
+  for (x, y) in zip(xs, ys):
+    if x < y:
+      return true
+  return false
+
 proc delta*[T](self: Formulae, others: seq[Formulae], dist: DistanceFunc, aggr: AggregateFunc[T]): Formulae =
   let models = self.getModels()
   let dfs = models.mapIt(df(it, others, dist, aggr))
