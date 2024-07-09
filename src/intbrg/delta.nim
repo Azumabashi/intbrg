@@ -19,6 +19,9 @@ func `<`*(xs, ys: seq[int]): bool =
       return true
   return false
 
+func `<=`*(xs, ys: seq[int]): bool = 
+  xs == ys or xs < ys
+
 proc delta*[T](self: Formulae, others: seq[Formulae], dist: DistanceFunc, aggr: AggregateFunc[T]): Formulae =
   let models = self.getModels()
   let dfs = models.mapIt(df(it, others, dist, aggr))
