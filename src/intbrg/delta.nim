@@ -14,8 +14,14 @@ proc df[T](omega: Model, ks: seq[Formulae], dist: DistanceFunc, aggr: AggregateF
 
 func `<`*(xs, ys: seq[int]): bool =
   for (x, y) in zip(xs, ys):
-    if x < y:
+    if x > y:
+      return false
+    elif x < y:
       return true
+    else:
+      discard
+  
+  # in case of xs == ys
   return false
 
 func `<=`*(xs, ys: seq[int]): bool = 
