@@ -34,7 +34,7 @@ func getTautology*(width: int): Formulae =
   (initBigInt("1".repeat(width), 2), width)
 
 # Iterate all formulae
-iterator allFormulae*(width: int): Formulae =
-  let totalKinds = 1 shl width
-  for index in 0..<totalKinds:
-    yield toBin(index, width).toFormula()
+iterator allFormulae*(propositions: int): Formulae =
+  let possibleModels = 1 shl propositions
+  for index in 0..<possibleModels:
+    yield toBin(index, possibleModels).toFormula()
