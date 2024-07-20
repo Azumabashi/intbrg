@@ -7,5 +7,5 @@ import ./intbrg/models
 export sum, gMin
 export delta, DistanceFunc, AggregateFunc, r1, r2, r3, r4, r5, r6, `<`, `<=`
 export drastic, hamming
-export Formulae, `and`, `or`, `not`, `implies`, `==`, `equiv`, `$`, toFormula
+export Formulae, `and`, `or`, `not`, `implies`, `==`, `equiv`, `$`, toFormula, getBitWidth
 export Model, `==`, `$`, getModels, isSat, isUnsat, isTautology, toModel, toFormula
