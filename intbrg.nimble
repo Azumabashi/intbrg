@@ -1,6 +1,6 @@
 # Package
 
-version       = "0.2.0"
+version       = "0.2.1"
 author        = "Azumabashi"
 description   = "Unofficial implementation of BRG using formulae in integers"
 license       = "MIT"
