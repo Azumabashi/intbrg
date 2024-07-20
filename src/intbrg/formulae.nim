@@ -32,3 +32,9 @@ func toFormula*(bit: string): Formulae = (initBigInt(bit, 2), bit.len)
 
 func getTautology*(width: int): Formulae = 
   (initBigInt("1".repeat(width), 2), width)
+
+# Iterate all formulae
+iterator allFormulae*(width: int): Formulae =
+  let totalKinds = 1 shl width
+  for index in 0..<totalKinds:
+    yield toBin(index, width).toFormula()
